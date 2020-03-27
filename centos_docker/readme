@@ -1,0 +1,19 @@
+CD to the sources folder and build the docker image
+
+# docker build --rm -t <username>/ssh:centos7 .
+
+
+To run:
+
+# docker run -d -p 22 <username>/ssh:centos7
+
+TIP: The username and password are settable in the start.sh script
+
+Checkout the exposed port number
+
+# docker ps
+
+
+To test, use the port that was just located:
+
+# ssh -p xxxx user@localhost 
