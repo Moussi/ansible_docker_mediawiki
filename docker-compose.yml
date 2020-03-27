@@ -16,7 +16,7 @@ services:
       - 222:22
     networks:
       wiki_net:
-          ipv4_address: 172.28.1.2
+          ipv4_address:  192.168.122.11
   wiki-db:
     build: 
       context: ./centos_docker/
@@ -32,7 +32,7 @@ services:
       - 223:22
     networks:
       wiki_net:
-          ipv4_address: 172.28.1.3
+          ipv4_address:  192.168.122.12
   ansible-nodemanager:
     build:
       context: ./debian_docker/
@@ -46,13 +46,16 @@ services:
       - 22
     ports:
       - 221:22
+    volumes:
+      - ./playbooks:/playbooks
+      - ./py37-ansible:/.virtualenvs/py37-ansible
     networks:
       wiki_net:
-        ipv4_address: 172.28.1.1
+        ipv4_address: 192.168.122.10
 
 networks:
   wiki_net:
       ipam:
           driver: default
           config:
-              - subnet: 172.28.0.0/16
+              - subnet: 192.168.122.0/24
