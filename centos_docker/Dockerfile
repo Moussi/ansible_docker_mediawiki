@@ -6,12 +6,11 @@ ARG user
 
 RUN yum -y update; yum clean all
 RUN yum -y install openssh-server passwd; yum clean all
-ADD ../common/add_user.sh /add_user.sh
+ADD common/add_user.sh /add_user.sh
 
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' 
-
-#RUN yes 'y' | ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N ""
-#RUN yes 'y' | ssh-keygen -t rsa -f /etc/ssh/ssh_host_ecdsa_key -N ""
+RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_ecdsa_key -N ''
+RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_ed25519_key -N ''
 
 RUN mkdir /root/.ssh && touch /etc/ssh/ssh_config
 RUN chown -R root:root /root/.ssh;chmod -R 700 /root/.ssh

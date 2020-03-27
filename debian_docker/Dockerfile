@@ -17,7 +17,7 @@ RUN chown -R root:root /root/.ssh;chmod -R 700 /root/.ssh
 RUN echo "StrictHostKeyChecking=no" >> /etc/ssh/ssh_config
 RUN mkdir /var/run/sshd
 
-ADD ./common/add_user.sh /add_user.sh
+ADD common/add_user.sh /add_user.sh
 
 RUN chmod 755 /add_user.sh
 RUN ./add_user.sh $user
