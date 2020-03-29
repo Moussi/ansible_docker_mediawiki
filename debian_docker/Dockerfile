@@ -5,6 +5,7 @@ ARG ssh_pub_key
 ARG user
 
 RUN apt update
+RUN apt install -y sudo
 RUN apt install -y systemd
 RUN apt install -y vim
 RUN apt install -y openssh-server tar; systemctl enable ssh
@@ -27,9 +28,6 @@ RUN cp /home/$user/.ssh/authorized_keys /root/.ssh/
 RUN chown -R $user:root /etc/ssh
 
 RUN mkdir /.virtualenvs && chmod 750 /.virtualenvs
-
-RUN python3 -m virtualenv --python=/usr/bin/python3 /.virtualenvs/py37-ansible
-RUN . /.virtualenvs/py37-ansible/bin/activate
 
 ENTRYPOINT ["/usr/sbin/sshd", "-D"]
 

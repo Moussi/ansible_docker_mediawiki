@@ -48,7 +48,7 @@ services:
       - 221:22
     volumes:
       - ./playbooks:/playbooks
-      - ./py37-ansible:/.virtualenvs/py37-ansible
+      - ./shared:/shared
     networks:
       wiki_net:
         ipv4_address: 192.168.122.10

@@ -5,7 +5,15 @@ ARG ssh_pub_key
 ARG user
 
 RUN yum -y update; yum clean all
+RUN yum install sudo -y
 RUN yum -y install openssh-server passwd; yum clean all
+
+# install python 3.7
+RUN yum install -y gcc openssl-devel bzip2-devel libffi-devel wget make
+RUN wget https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tgz
+RUN tar xzf Python-3.7.4.tgz; cd ./Python-3.7.4; ./configure --enable-optimizations; make altinstall
+RUN rm Python-3.7.4.tgz
+RUN ln -fs /usr/local/bin/python3.7 /usr/bin/python3
 ADD common/add_user.sh /add_user.sh
 
 RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -N '' 
