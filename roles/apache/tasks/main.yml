@@ -1,2 +1,18 @@
 ---
 # tasks file for apache
+
+- name: "install apache"
+  yum:
+    name: "httpd"
+    state: "present"
+
+- name: "enable apache service"
+  service:
+    name: "httpd"
+    state: "started"
+    enabled: yes
+
+# install php packags only if php_install var is True, by default is FAlse
+- name: "install php packages"
+  include: "php7-install.yml"
+  when: php_install|default(False)|bool

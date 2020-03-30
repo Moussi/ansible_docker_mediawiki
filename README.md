@@ -39,3 +39,19 @@ ssh-keygen -t ecdsa
 ```aidl
 ansible -i inventory.ini -m authorized_key -a 'user=user-ansible state=present key="{{ lookup("file", "/home/moussi/Desktop/Projects/ansible/ssh_keys/id_ecdsa.pub") }}"' --user user-ansible --ask-pass --become --ask-become-pass all
 ```
+
+## generate encrypted password via ansible-vault
+```aidl
+// using Ansible2019 password
+ ansible-vault encrypt_string 'admin' --name 'mediawiki_admin_password'
+```
+
+## Disable security controls for testing
+
+disable  SElinux :  ```setenforce 0  ;```  
+
+disable  SElinux definitely : edit file  ```/etc/selinux/config```  and add this line ```SELINUX=permissive ;```  
+
+disable firewalling : ```systemctl stop firewalld.service```  
+
+disable firewalling : ```systemctl disable firewalld.service```

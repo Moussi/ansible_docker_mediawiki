@@ -1,0 +1,16 @@
+---
+
+---
+
+# Install mariadb server packages and python extensions
+- name: "mariadb-server installation"
+  yum:
+    name:  "mariadb-server,MySQL-python"
+    state: "installed"
+
+  # Activate MariaDB service
+- name: "start mariadb service"
+  service:
+    name:  "mariadb"
+    state: "started"
+    enabled: yes
