@@ -1,2 +1,4 @@
 .idea
 py37-ansible/*
+.vagrant/*
+*.retry
