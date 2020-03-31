@@ -1,7 +1,5 @@
 ---
 
----
-
 # Install mariadb server packages and python extensions
 - name: "mariadb-server installation"
   yum:

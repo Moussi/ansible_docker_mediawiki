@@ -14,4 +14,4 @@
     priv: "{{mediawiki_db_name}}.*:ALL"
     host: "{{item}}"
     state: present
-    with_items: "{{groups.apache}}"
+  with_items: "{{groups.apache}}"

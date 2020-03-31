@@ -1,3 +1,13 @@
+
+# create vms and users
+
+```aidl
+cd vagrant
+vagrant up
+add manualy authorized keys to authorize user-ansible to connect
+```
+
+
 # Prepare ansible packages via python 
 
 ```aidl
@@ -55,3 +65,15 @@ disable  SElinux definitely : edit file  ```/etc/selinux/config```  and add this
 disable firewalling : ```systemctl stop firewalld.service```  
 
 disable firewalling : ```systemctl disable firewalld.service```
+
+## run  Playbook
+```aidl
+ansible-playbook -i inventory.ini --user user-ansible --become --ask-become-pass install-apache.yml 
+ansible-playbook -i inventory.ini --user user-ansible --become --ask-become-pass install-mariadb.yml
+ansible-playbook -i inventory.ini --user user-ansible --become --ask-become-pass --ask-vault-pass install-mediawiki.yml
+```
+
+## ping nodes
+```aidl
+ansible -i inventory.ini all -m ping -vvv --user user-ansible
+```

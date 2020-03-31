@@ -1,0 +1,35 @@
+Vagrant.configure("2") do |config|
+  config.vm.provision "shell", path: "./setup_ssh.sh"
+
+  config.vm.provision "shell", inline: <<-SHELL
+    cat /vagrant/id_rsa.pub >> /home/vagrant/.ssh/authorized_keys
+    cat /vagrant/id_ecdsa.pub >> /home/vagrant/.ssh/authorized_keys
+    cat /vagrant/id_rsa.pub >> /root/.ssh/authorized_keys
+    cat /vagrant/id_ecdsa.pub >> /root/.ssh/authorized_keys
+  SHELL
+
+  config.vm.define "http1" do |http1|
+      http1.vm.hostname = "http1"
+      http1.vm.box = "centos/7"
+      http1.vm.network :forwarded_port, guest: 22, host: 1235, id: "ssh"
+      http1.vm.network "private_network", ip: "192.168.122.21"
+      http1.vm.provider :virtualbox do |v|
+        v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        v.customize ["modifyvm", :id, "--memory", 512]
+        v.customize ["modifyvm", :id, "--name", "http1"]
+      end
+  end
+
+  config.vm.define "bdd1" do |bdd1|
+        bdd1.vm.hostname = "bdd1"
+        bdd1.vm.box = "centos/7"
+        bdd1.vm.network :forwarded_port, guest: 22, host: 1234, id: "ssh"
+        bdd1.vm.network "private_network", ip: "192.168.122.22"
+        bdd1.vm.provider :virtualbox do |v|
+          v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+          v.customize ["modifyvm", :id, "--memory", 512]
+          v.customize ["modifyvm", :id, "--name", "bdd1"]
+        end
+  end
+
+end
